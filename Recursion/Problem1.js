@@ -227,13 +227,8 @@ function mergeSort(arr, s = 0, e = arr.length - 1) {
     const result = [];
     let a = (b = 0);
     for (i = 0; i < left.length + right.length; i++) {
-      if (left[a] > right[b] || a >= left.length) {
-        result.push(right[b]);
-        ++b;
-      } else {
-        result.push(left[a]);
-        ++a;
-      }
+      if (left[a] > right[b] || a >= left.length) result.push(right[b++]);
+      else result.push(left[a++]);
     }
     return result;
   }
@@ -245,4 +240,6 @@ function mergeSort(arr, s = 0, e = arr.length - 1) {
   const right = arr.slice(mid);
   return merge(mergeSort(left), mergeSort(right));
 }
-console.log(mergeSort([3, 7, 0, 1, 5, 8, 3, 2, 34, 66, 87, 23, 12, 12, 12]));
+console.log(
+  mergeSort([99, 3, 7, 0, 1, 5, 8, 3, 2, 34, 66, 87, 23, 12, 12, 12])
+);
