@@ -66,3 +66,26 @@ function findMissingElemnetRecursion(list, start = 0, end = list.length - 1) {
 }
 
 console.log(findMissingElemnetRecursion([10, 11, 12, 13, 15, 16, 17, 18, 19])); // 14
+
+// pick mountain
+// list[i] < list[i+1] left
+// list[i] > list[i+1] right
+// list[i] > list[i+1] && list[i] > list[i-1] pick
+
+function peakIndexInMountainArrayRecursion(
+  list,
+  start = 0,
+  end = list.length - 1
+) {
+  if (start >= end) return list[start];
+  const mid = Math.floor(start + (end - start) / 2);
+  if (list[mid] < list[mid + 1]) {
+    return peakIndexInMountainArrayRecursion(list, mid + 1, end);
+  } else {
+    return peakIndexInMountainArrayRecursion(list, start, mid);
+  }
+}
+
+console.log(
+  peakIndexInMountainArrayRecursion([10, 20, 30, 90, 70, 60, 50, 40])
+);
