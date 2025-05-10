@@ -99,3 +99,31 @@ function getPickIndexOfAMountainArray(list, start = 0, end = list.length - 1) {
 }
 
 console.log(getPickIndexOfAMountainArray([10, 20, 30, 40, 50, 60, 70, 80, 90, 70, 60, 50, 40]));
+
+// find pivit elemnet in a rotated sorted array
+function findPivitElementIndex(list, start = 0, end = list.length - 1) {
+  if (start > end) return;
+  const mid = Math.floor(start + (end - start) / 2);
+  if (start === end) return start;
+  else if (list[mid] < list[mid - 1]) return mid - 1;
+  else if (list[mid] > list[mid + 1]) return mid;
+  else if (list[mid] < list[0]) return findPivitElementIndex(list, start, mid - 1);
+  else return findPivitElementIndex(list, mid + 1, end);
+}
+
+console.log(findPivitElementIndex([12, 14, 16, 2, 4, 6, 8, 10]));
+
+// find the index of an elemnet in a rotated sorted array
+function getInexInSortedRotatedList(list, item) {
+  const pivotIndex = findPivitElementIndex(list);
+  if (item === list[pivotIndex]) return pivotIndex;
+  else if (list.length === 1 && item !== list[pivotIndex]) return -1;
+  else if (item >= list[0] && item <= list[pivotIndex]) {
+    return binarytSearch(list, item, 0, pivotIndex - 1);
+  } else {
+    return binarytSearch(list, item, pivotIndex + 1, list.length - 1);
+  }
+}
+
+console.log(getInexInSortedRotatedList([12, 14, 16, 2, 4, 6, 8, 10], 6)); // 5
+console.log(getInexInSortedRotatedList([1, 3], 4)); // 0
